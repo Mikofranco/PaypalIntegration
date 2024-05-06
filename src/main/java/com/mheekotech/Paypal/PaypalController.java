@@ -23,7 +23,7 @@ public class PaypalController {
         return "index";
     }
 
-    @PostMapping
+    @PostMapping("/payment/create")
     public RedirectView createPayments(){
         try {
             String cancelUrl ="https://localhost:8080/payment/cancel";
@@ -43,9 +43,9 @@ public class PaypalController {
     }
 
     @PostMapping("/payment/success")
-    public String paymentSuccess(@RequestParam("paymentId") String paymentId,  @RequestParam("payerId") String payerId){
+    public String paymentSuccess(@RequestParam("paymentId") String paymentId,  @RequestParam("PayerID") String PayerID){
             try {
-                Payment payment = paypalService.executePayment(paymentId,payerId);
+                Payment payment = paypalService.executePayment(paymentId,PayerID);
                 if(payment.getState().equals("approved")){
                     return "paymentSuccess";
                 }
